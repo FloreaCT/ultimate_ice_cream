@@ -98,8 +98,8 @@ let menuData = [
 
 const getAvailableStock = () =>
   iceCreams.filter(
-    iceCream =>
-      menuData.find(menuItem => menuItem.iceCream.id === iceCream.id) ===
+    (iceCream) =>
+      menuData.find((menuItem) => menuItem.iceCream.id === iceCream.id) ===
       undefined
   );
 
@@ -109,7 +109,7 @@ app.get('/api/menu/stock-ice-creams', (req, res) => {
 
 app.get('/api/menu/stock-ice-creams/:id', (req, res) => {
   const iceCream = getAvailableStock().find(
-    iceCream => iceCream.id === parseInt(req.params.id, 10)
+    (iceCream) => iceCream.id === parseInt(req.params.id, 10)
   );
   if (iceCream) {
     res.send(iceCream);
@@ -124,11 +124,11 @@ app.get('/api/menu', (req, res) => {
 });
 
 app.post('/api/menu', (req, res) => {
-  const {  iceCream, ...rest } = req.body;
+  const { iceCream, ...rest } = req.body;
   const newMenuItem = {
     id: menuData.reduce((prev, cur) => (cur.id > prev ? cur.id : prev), 0) + 1,
     iceCream: {
-      ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
+      ...iceCreams.find((item) => item.id === parseInt(iceCream.id, 10)),
     },
     ...rest,
   };
@@ -139,7 +139,7 @@ app.post('/api/menu', (req, res) => {
 
 app.get('/api/menu/:id', (req, res) => {
   const menuItem = menuData.find(
-    item => item.id === parseInt(req.params.id),
+    (item) => item.id === parseInt(req.params.id),
     10
   );
   if (menuItem) {
@@ -157,11 +157,11 @@ app.put('/api/menu/:id', (req, res) => {
   const updatedItem = {
     id: intId,
     iceCream: {
-      ...iceCreams.find(item => item.id === parseInt(iceCream.id, 10)),
+      ...iceCreams.find((item) => item.id === parseInt(iceCream.id, 10)),
     },
     ...rest,
   };
-  menuData = menuData.map(menuItem => {
+  menuData = menuData.map((menuItem) => {
     if (menuItem.id === parseInt(req.params.id, 10)) {
       return updatedItem;
     }
@@ -173,7 +173,7 @@ app.put('/api/menu/:id', (req, res) => {
 
 app.delete('/api/menu/:id', (req, res) => {
   menuData = menuData.filter(
-    menuItem => menuItem.id !== parseInt(req.params.id, 10)
+    (menuItem) => menuItem.id !== parseInt(req.params.id, 10)
   );
   res.status(204);
   res.send();

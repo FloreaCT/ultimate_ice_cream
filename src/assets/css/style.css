@@ -60,7 +60,7 @@ h4 {
 .main-heading{
   text-align: center;
   margin-top: 50px;
-  margin-bottom:  35%;
+  margin-bottom: ;
   font-size: 40px;
 }
 
@@ -131,6 +131,9 @@ img {
   text-align: center;
   background-color: #f1f1f1;
   border-radius: 5px 5px 0 0;
+}
+.image-container img{
+  width: 150px;
 }
 
 .text-container {
