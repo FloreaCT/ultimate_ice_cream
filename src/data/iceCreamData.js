@@ -14,12 +14,21 @@ export const getMenu = () => {
   });
 };
 
-export const getMenuItem = (id) => {
+export const getMenuItem = (menuItemId) => {
   return axios
-    .get(`/api/menu/${id}`)
+    .get(`/api/menu/${menuItemId}`)
     .then((response) => {
       return response.data;
     })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const putMenuItem = (menuItem) => {
+  return axios
+    .put(`/api/menu/${menuItem.id.toString()}`, menuItem)
+    .then((response) => response.data)
     .catch((err) => {
       throw err;
     });

@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { getMenu } from '../data/iceCreamData';
 import { Helmet } from 'react-helmet';
 import IceCreamImage from './iceCreamImage';
-import { LoadingMessage } from '../structure/LoadingMessage.';
+import LoadingMessage from '../structure/LoadingMessage.';
+import { Link, useNavigate } from 'react-router-dom';
+import Main from '../structure/Main';
 
 export const Menu = () => {
+  const navigate = useNavigate();
   const [menu, setMenu] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,16 +24,18 @@ export const Menu = () => {
     };
   }, []);
 
+  const onItemClickHandler = (to) => {
+    navigate(to);
+  };
+
+  const onLinkClickHandler = (e) => {
+    // This is done to avoid the click handler of <section>
+    // firing and placing two browser entries in browser history
+    e.stopPropagation();
+  };
+
   return (
-    <main>
-      <Helmet>
-        <title>
-          Rock your taste buds with some ice cream! | Ultimate Ice Cream
-        </title>
-      </Helmet>
-      <h2 className="main-heading">
-        Rock your taste buds with some ice cream!
-      </h2>
+    <Main headingText="Rock your taste buds with some ice cream!">
       <LoadingMessage
         loadingMessage={'Loading Menu'}
         isLoading={isLoading}
@@ -41,12 +46,24 @@ export const Menu = () => {
           {menu.map(
             ({ id, iceCream, price, description, inStock, quantity }) => (
               <li key={id.toString()}>
-                <section className="card">
+                <section
+                  className="card"
+                  onClick={() => {
+                    onItemClickHandler(`/menu-items/${id.toString()}`);
+                  }}
+                >
                   <div className="image-container">
                     <IceCreamImage iceCreamId={iceCream.id} />
                   </div>
                   <div className="text-container">
-                    <h3>{iceCream.name}</h3>
+                    <h3>
+                      <Link
+                        to={`/menu-items/${id.toString()}`}
+                        onClick={onLinkClickHandler}
+                      >
+                        {iceCream.name}
+                      </Link>
+                    </h3>
                     <div className="content card-content">
                       <p className="price">${price.toFixed(2)}</p>
                       <p className={`stock${inStock ? '' : '-out'}`}>
@@ -67,6 +84,6 @@ export const Menu = () => {
           <p className="empty-menu">The children ate all the Ice Cream!!! </p>
         )
       )}
-    </main>
+    </Main>
   );
 };

@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export const LoadingMessage = ({ loadingMessage, doneMessage, isLoading }) => {
+const LoadingMessage = ({ loadingMessage, doneMessage, isLoading }) => {
   const [showLoadingMessage, setShowLoadingMessage] = useState(false);
   const [showDoneMessage, setShowDoneMessage] = useState(false);
   const isLoadingPreviousValue = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let loadingMessageDelay;
     let doneMessageDelay;
 
@@ -26,23 +26,23 @@ export const LoadingMessage = ({ loadingMessage, doneMessage, isLoading }) => {
     isLoadingPreviousValue.current = isLoading;
 
     return () => {
-      clearTimeout(loadingMessageDelay);
-      clearTimeout(doneMessageDelay);
       setShowLoadingMessage(false);
       setShowDoneMessage(false);
+      clearTimeout(loadingMessageDelay);
+      clearTimeout(doneMessageDelay);
     };
   }, [isLoading]);
-
-  LoadingMessage.propTypes = {
-    loadingMessage: PropTypes.string.isRequired,
-    isLoading: PropTypes.bool,
-    doneMessage: PropTypes.string.isRequired,
-  };
-
-  return (
-    <div aria-live="assertive" aria-atomic="true">
-      {showLoadingMessage && <p className="loading">{loadingMessage}</p>}
-      {showDoneMessage && <p className="visually-hidden">{doneMessage}</p>}
-    </div>
-  );
+  // return (
+  //   <div aria-live="assertive" aria-atomic="true">
+  //     {showLoadingMessage && <p className="loading">{loadingMessage}</p>}
+  //     {showDoneMessage && <p className="visually-hidden">{doneMessage}</p>}
+  //   </div>
+  // );
 };
+LoadingMessage.propTypes = {
+  loadingMessage: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+  doneMessage: PropTypes.string.isRequired,
+};
+
+export default LoadingMessage;

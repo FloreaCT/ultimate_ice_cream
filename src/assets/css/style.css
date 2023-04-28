@@ -110,9 +110,29 @@ img {
   width: 33%;
   padding: 0 10px;
 }
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+
+header nav a.active {
+  color:#ab131c
+}
+
+header nav {
+  background-color: white;
+  border-radius: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+header nav a {
+  font-weight: 500;
+  position: relative;
+  border: 2px solid transparent;
+  border-radius: 6em;
+  padding: 0 0.75em;
+  font-size: 1em;
+  line-height: 2em;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease-in-out;
+
 }
 
 /* Add some padding inside the card container */
@@ -131,6 +151,9 @@ img {
   text-align: center;
   background-color: #f1f1f1;
   border-radius: 5px 5px 0 0;
+}
+.card:hover {
+  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 .image-container img{
   width: 150px;
@@ -160,3 +183,5 @@ img {
 .description {
   font-weight:500;
 }
+
+
