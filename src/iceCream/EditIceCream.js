@@ -11,6 +11,7 @@ export const EditIceCream = ({}) => {
   const [menuItem, setMenuItem] = useState({});
   const navigation = useNavigate();
   const params = useParams();
+
   useEffect(() => {
     let isMounted = true;
     getMenuItem(params.menuItemId)

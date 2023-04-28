@@ -167,7 +167,6 @@ app.put('/api/menu/:id', (req, res) => {
     }
     return menuItem;
   });
-
   res.send(updatedItem);
 });
 

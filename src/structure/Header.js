@@ -19,6 +19,14 @@ export default function Header() {
         >
           Menu
         </NavLink>
+        <NavLink
+          to="/ice-creams"
+          className={({ isActive, isPending }) =>
+            isPending ? '' : isActive ? 'active' : 'notActive'
+          }
+        >
+          Add Ice Cream
+        </NavLink>
       </nav>
     </header>
   );
