@@ -11,7 +11,7 @@ const Main = ({ children, headingText, headingLevel = 2 }) => {
   }, []);
 
   return (
-    <main>
+    <main tabIndex="-1" id="main">
       <Helmet>
         <title>{headingText} | Ultimate Ice Cream</title>
       </Helmet>
